@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/notes.css">
+    <title>Notes</title>
+</head>
+<body>
+
+    <div class="note-card">
+        <img src="/assets/Back button.png" class="backButton">
+        <h1>Notes Page</h1>
+
+        <div class="note-main">
+            <h2 id="noteTitle"></h2>
+
+            <div id="noteDetails">
+                <textarea id="detailsText" readonly></textarea>
+                <div class="buttonArea">
+                    <button id="editDetailsButton">Allow Edits</button>
+                    <button id="submitEditsButton">Submit Edits</button>
+                </div>
+            </div>
+
+            <div class="noteBody">
+                <!-- TASKS -->
+                <div class="tasks-section">
+                    <h1 class="taskh1">Tasks</h1>
+                    <p class="tasks-hint">Check a task off once it's finished.</p>
+
+                    <div class="task-table-wrap">
+                        <table id="taskTable">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Task Detail</th>
+                                    <th>Is Finished</th>
+                                    <th>Functions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taskTableBody">
+                                <!-- TASKS GO HERE -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="buttonArea taskButtonArea">
+                        <button id="openModalButton">Add Task</button>
+                        <button id="finishTasks">Clear Finished Tasks</button>
+                        <button id="deleteNoteButton">Delete Note</button>
+                    </div>
+
+<!-- ================================================================================================      -->
+                    <!-- FINISHED TASKS -->
+                    <details class="finished-tasks" id="finishedTasksSection">
+                        <summary>
+                            <span class="finished-tasks-label">Finished Tasks</span>
+                            <span class="finished-tasks-count" id="finishedCount">0</span>
+                        </summary>
+
+                        <div class="task-table-wrap finished-table-wrap">
+                            <table id="finishedTaskTable">
+                                <thead>
+                                    <tr>
+                                        <th>Task Name</th>
+                                        <th>Task Detail</th>
+                                        <th>Is Finished</th>
+                                        <th>Functions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="finishedTaskTableBody">
+                                    <!-- FINISHED TASKS GO HERE -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="addTaskModal">
+        <h4>Add A Task</h4>
+
+        <div class="taskModalInputs">
+            <label for="addTaskTitle">Task Name</label>
+            <input type="text" id="addTaskTitle" name="addTaskTitle">
+
+            <label for="addTaskDetails">Task Details</label>
+            <input type="text" name="addTaskDetails" id="addTaskDetails">
+        </div>
+
+        <div class="buttonArea">
+            <button id="addTaskButton">Add Task</button>
+            <button id="closeTaskModal">Close</button>
+        </div>
+    </dialog>
+
+    <dialog id="editTaskModal">
+        <h4>Edit A Task</h4>
+
+        <div class="taskModalInputs">
+            <label for="editTaskModalInput">Task Name</label>
+            <input type="text" id="editTaskModalInput" name="editTaskModalInput">
+
+            <label for="editTaskModalDetails">Task Details</label>
+            <input type="text" name="editTaskModalDetails" id="editTaskModalDetails">
+        </div>
+
+        <div class="buttonArea">
+            <button id="submitTaskEdit">Submit Changes</button>
+            <button id="closeEditTaskModal">Close</button>
+        </div>
+    </dialog>
+
+    <script src="/scripts/notes.js"></script>
+</body>
+</html>

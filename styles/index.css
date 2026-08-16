@@ -1,0 +1,574 @@
+/* ============================================
+   Notepad App — "Desk Notebook" theme
+   Palette: warm paper + pine ink + highlighter tape
+   ============================================ */
+
+:root{
+    --paper:        #F7F1E1;
+    --paper-line:   #E3D6B4;
+    --paper-margin: #D98E76;
+    --card:         #FFFDF6;
+    --ink:          #23241D;
+    --muted:        #85806E;
+    --pine:         #2E5B4C;
+    --pine-dark:    #1D3C32;
+    --pine-tint:    #E7EFE7;
+    --highlight:    #F2BF2E;
+    --highlight-dk: #D4A016;
+    --tape:         rgba(242, 191, 46, 0.55);
+    --coral:        #C15B3E;
+    --danger:       #B9563F;
+
+    --radius-lg: 14px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+
+    --shadow-card: 0 1px 2px rgba(35,36,29,0.07), 0 10px 28px rgba(35,36,29,0.10);
+    --shadow-pop:  0 18px 48px rgba(35,36,29,0.28);
+
+    --font-display: 'Caveat', cursive;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 35px,
+            var(--paper-line) 36px
+        ),
+        linear-gradient(
+            to right,
+            transparent 64px,
+            var(--paper-margin) 65px,
+            transparent 66px
+        );
+    background-attachment: local, fixed;
+    padding: 48px 24px 80px;
+    min-height: 100vh;
+}
+
+h1{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3.6rem;
+    line-height: 1;
+    color: var(--pine-dark);
+    text-align: center;
+    letter-spacing: 0.5px;
+    transform: rotate(-1deg);
+}
+
+h4{
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 44px;
+    font-style: italic;
+}
+
+h3{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--pine-dark);
+    text-align: center;
+    letter-spacing: 0.5px;
+    overflow: hidden;
+}
+
+h2{
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    color: var(--pine-dark);
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+    border-bottom: 2px dashed var(--paper-line);
+}
+
+label{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+input[type="text"],
+input:not([type]),
+textarea{
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input:not([type]):focus,
+textarea:focus{
+    border-color: var(--pine);
+    background: var(--card);
+    box-shadow: 0 0 0 3px var(--pine-tint);
+}
+
+button{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    border: none;
+    padding: 10px 18px;
+    transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover{
+    transform: translateY(-1px);
+}
+
+button:active{
+    transform: translateY(0);
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+}
+
+a{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    border: none;
+    padding: 10px 18px;
+    transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;  
+    background-color:var(--pine);
+    color: white;
+}
+
+a:hover{
+    transform: translateY(-1px);
+}
+
+a:active{
+    transform: translateY(0);
+}
+
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+}
+
+/* ---------- layout ---------- */
+
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ---------- the note-creation card ---------- */
+
+.inputNote{
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 30px 28px 26px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    border-left: 6px solid var(--pine);
+    transform: rotate(-0.4deg);
+}
+
+.inputNote::before{
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 42px;
+    width: 76px;
+    height: 26px;
+    background: var(--tape);
+    border-left: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 3px rgba(35,36,29,0.12);
+}
+
+#titleArea{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    gap: 12px;
+}
+
+#titleArea input{
+    flex: 1;
+}
+
+.textArea{
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+    gap: 8px;
+}
+
+.textArea textarea{
+    min-height: 110px;
+    line-height: 1.55;
+}
+
+/* ---------- tasks ---------- */
+
+.taskArea{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 18px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--paper-line);
+}
+
+#taskButton{
+    text-align: center;
+    margin-right: 0;
+    margin-left: 0;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+#openTaskButton{
+    background: transparent;
+    color: var(--pine-dark);
+    border: 1.5px dashed var(--pine);
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#openTaskButton::before{
+    content: "+";
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--pine);
+}
+
+#openTaskButton:hover{
+    background: var(--pine-tint);
+    border-style: solid;
+}
+
+.checkBoxArea{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.checkBoxArea > p{
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--paper-line);
+}
+
+#taskContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--paper-line) transparent;
+}
+
+#taskContainer:empty::after{
+    content: "No tasks yet — add one to get started.";
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--muted);
+}
+
+#submitNoteButton{
+    align-self: center;
+    margin-top: 22px;
+    background: var(--pine);
+    color: #fff;
+    padding: 11px 34px;
+    box-shadow: 0 4px 14px rgba(46,91,76,0.32);
+    letter-spacing: 0.02em;
+}
+
+#submitNoteButton:hover{
+    background: var(--pine-dark);
+    box-shadow: 0 6px 18px rgba(46,91,76,0.4);
+}
+
+/* individual task chips (created dynamically into #taskContainer) */
+
+.task{
+    width: 100%;
+    max-width: none;
+    background: var(--card);
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius-sm);
+    padding: 14px 14px 12px 20px;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.task:hover{
+    border-color: var(--pine);
+    box-shadow: 0 3px 10px rgba(35,36,29,0.08);
+    transform: translateY(-1px);
+}
+
+.task textarea{
+    resize: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+    min-height: 40px;
+    field-sizing: content;
+}
+
+.task::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 16px;
+    width: 30px;
+    height: 9px;
+    background: var(--highlight);
+    opacity: 0.9;
+    border-radius: 0 0 3px 3px;
+}
+
+.task::after{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 20px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--coral);
+}
+
+.indiTask{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    gap: 6px;
+}
+
+.indiTask label{
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--pine-dark);
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* ---------- notes list card ---------- */
+
+#allNotes{
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 30px 28px;
+    width: 100%;
+    max-width: 340px;
+    border-left: 6px solid var(--highlight-dk);
+    position: relative;
+    transform: rotate(0.4deg);
+}
+
+#allNotes::before{
+    content: "";
+    position: absolute;
+    top: -12px;
+    right: 46px;
+    width: 66px;
+    height: 24px;
+    background: var(--tape);
+    border-left: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    transform: rotate(2.5deg);
+    box-shadow: 0 2px 3px rgba(35,36,29,0.12);
+}
+
+.allNotes button{
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--paper-line);
+    text-align: left;
+    padding: 12px 14px;
+}
+
+
+.allNotes button:hover{
+    border-color: var(--pine);
+    background: var(--pine-tint);
+    transform: translateX(2px);
+}
+
+/* ---------- add-task modal ---------- */
+
+dialog#addTaskModal{
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-pop);
+    background: var(--card);
+    max-width: 360px;
+    width: 90%;
+}
+
+dialog#addTaskModal::backdrop{
+    background: rgba(29,60,50,0.4);
+    backdrop-filter: blur(2px);
+}
+
+dialog#addTaskModal h4{
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--pine-dark);
+    text-align: left;
+    font-style: normal;
+    margin-bottom: 4px;
+}
+
+.taskModalInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 18px 0 20px;
+}
+
+.taskModalInputs input{
+    width: 100%;
+}
+
+#addTaskButton{
+    background: var(--pine);
+    color: #fff;
+    margin-right: 8px;
+}
+
+#addTaskButton:hover{
+    background: var(--pine-dark);
+}
+
+#closeTaskModal{
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--paper-line);
+}
+
+#closeTaskModal:hover{
+    background: var(--paper);
+    color: var(--ink);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 620px){
+    h1{ font-size: 2.7rem; }
+    body{
+        padding: 32px 16px 60px;
+        background-image: repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 35px,
+            var(--paper-line) 36px
+        );
+    }
+    .mainContainer{ flex-direction: column; align-items: center; }
+    .inputNote, .allNotes{ max-width: 100%; transform: none; }
+    .inputNote::before, #allNotes::before{ left: 50%; right: auto; transform: translateX(-50%) rotate(-2deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+    *{
+        transition: none !important;
+    }
+}
+
+#notesContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    justify-items: center;
+}
+
+#buttonArea{
+    display: flex;
+    flex-direction: row;
+}

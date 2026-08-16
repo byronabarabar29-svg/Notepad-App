@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/index.css">
+    <title>Note App</title>
+</head>
+<body>
+    <h1>Notepad App</h1>
+    <h4>Write your thoughts for today</h4>
+
+    <div class="mainContainer">
+
+        <div class="inputNote">
+            <h2>Create a new Note</h2>
+
+            <div id="titleArea">
+                <label for="title">Input Title: </label>
+                <input id="titleInput" name="titleInput">
+                <br>
+            </div>
+            <div class="textArea">
+                <label for="textInput">Input Text:</label>
+                <br>
+                <textarea placeholder="input note" id="textInput"></textarea>
+            </div>
+
+            <div class="taskArea">
+                <div id="taskButton">
+                    <button id="openTaskButton">Add a Task</button>
+                </div>
+
+                <div class="checkBoxArea">
+                        <p>Tasks</p>
+                    <div class="taskContainer" id="taskContainer">
+                        <!-- TASK GOES HERE -->
+                    </div>
+                </div>
+            </div>
+
+            <button id="submitNoteButton">Submit note</button>
+
+        </div>
+
+        <div id="allNotes">
+            <h2>Your Notes</h2>
+            <div id="notesContainer">
+
+            </div>
+        </div>
+
+        <dialog id="addTaskModal">
+            <h4>Add A Task</h4>
+
+            <div class="taskModalInputs">
+                <label for="addTaskInput">Task Name</label>
+                <input type="text" id="addTaskTitle" name="addTaskTitle">
+                <label for="addTaskDetails">Task Details</label>
+                <input type="text" name="addTaskDetails" id="addTaskDetails">
+            </div>
+
+            <button id="addTaskButton">Add Task</button>
+            <button id="closeTaskModal">Close Modal</button>
+        </dialog>
+
+
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

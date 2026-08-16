@@ -1,0 +1,654 @@
+/* ============================================
+   Notepad App — "Desk Notebook" theme
+   Palette: warm paper + pine ink + highlighter tape
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+:root{
+    --paper:        #F7F1E1;
+    --paper-line:   #E3D6B4;
+    --paper-margin: #D98E76;
+    --card:         #FFFDF6;
+    --ink:          #23241D;
+    --muted:        #85806E;
+    --pine:         #2E5B4C;
+    --pine-dark:    #1D3C32;
+    --pine-tint:    #E7EFE7;
+    --highlight:    #F2BF2E;
+    --highlight-dk: #D4A016;
+    --tape:         rgba(242, 191, 46, 0.55);
+    --coral:        #C15B3E;
+    --danger:       #B9563F;
+    --danger-tint:  #F7E3DD;
+
+    --radius-lg: 14px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+
+    --shadow-card: 0 1px 2px rgba(35,36,29,0.07), 0 10px 28px rgba(35,36,29,0.10);
+    --shadow-pop:  0 18px 48px rgba(35,36,29,0.28);
+
+    --font-display: 'Caveat', cursive;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 35px,
+            var(--paper-line) 36px
+        ),
+        linear-gradient(
+            to right,
+            transparent 64px,
+            var(--paper-margin) 65px,
+            transparent 66px
+        );
+    background-attachment: local, fixed;
+    padding: 48px 24px 80px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+}
+
+h1{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--pine-dark);
+    text-align: center;
+    letter-spacing: 0.5px;
+    transform: rotate(-1deg);
+    margin: 0 0 30px;
+}
+
+/* ---------- note card ---------- */
+
+.note-card{
+    max-width: 640px;
+    margin: 0 auto 40px;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 30px 30px 26px;
+    position: relative;
+    border-left: 6px solid var(--pine);
+}
+
+.note-card::before{
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 42px;
+    width: 76px;
+    height: 26px;
+    background: var(--tape);
+    border-left: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 3px rgba(35,36,29,0.12);
+}
+
+/* ---------- note details ---------- */
+
+#noteTitle{
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--pine-dark);
+    letter-spacing: 0.5px;
+    margin: 4px 0 20px;
+}
+
+#noteDetails{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    gap: 10px;
+}
+
+#detailsText{
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    min-height: 110px;
+    line-height: 1.55;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+#detailsText:focus{
+    border-color: var(--pine);
+    background: var(--card);
+    box-shadow: 0 0 0 3px var(--pine-tint);
+}
+
+#detailsText:read-only{
+    color: var(--muted);
+    background: var(--paper);
+    cursor: default;
+}
+
+.buttonArea{
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+/* ---------- buttons (general) ---------- */
+
+button{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--paper-line);
+    background: var(--paper);
+    color: var(--ink);
+    padding: 10px 18px;
+    transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+button:hover{
+    transform: translateY(-1px);
+    border-color: var(--pine);
+    background: var(--pine-tint);
+}
+
+button:active{
+    transform: translateY(0);
+}
+
+button:focus-visible{
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+}
+
+/* ---------- edit-details toggle ---------- */
+
+#editDetailsButton{
+    background: transparent;
+    color: var(--pine-dark);
+    border: 1.5px dashed var(--pine);
+}
+
+#editDetailsButton:hover{
+    background: var(--pine-tint);
+    border-style: solid;
+}
+
+#editDetailsButton.allowed{
+    background: var(--pine);
+    color: #fff;
+    border-color: var(--pine);
+    opacity: 100%;
+}
+
+#editDetailsButton.allowed:hover{
+    background: var(--pine-dark);
+}
+
+#editDetailsButton.notAllowed{
+    opacity: 100%;
+}
+
+.checked td{
+    opacity: 50%;
+}
+
+/* Submit Edits */
+#submitEditsButton{
+    background: var(--highlight);
+    border-color: var(--highlight-dk);
+    color: var(--pine-dark);
+}
+
+#submitEditsButton:hover{
+    background: var(--highlight-dk);
+    color: #fff;
+}
+
+/* ---------- tasks section ---------- */
+
+.tasks-section{
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--paper-line);
+}
+
+.taskh1{
+    font-size: 2rem;
+    text-align: left;
+    transform: none;
+    margin: 0 0 6px;
+}
+
+.tasks-hint{
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0 0 16px;
+}
+
+#openModalButton{
+    background: transparent;
+    color: var(--pine-dark);
+    border: 1.5px dashed var(--pine);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#openModalButton::before{
+    content: "+";
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--pine);
+}
+
+#openModalButton:hover{
+    background: var(--pine-tint);
+    border-style: solid;
+}
+
+.taskButtonArea{
+    margin-top: 14px;
+}
+
+#deleteNoteButton{
+    background: var(--danger-tint);
+    color: var(--danger);
+    border-color: #E3BBA9;
+}
+
+#deleteNoteButton:hover{
+    background: var(--danger);
+    color: #fff;
+    border-color: var(--danger);
+}
+
+/* ---------- task table ---------- */
+
+.task-table-wrap{
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    margin: 0 0 6px;
+}
+
+#taskTable{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    background: var(--card);
+}
+
+#taskTable th,
+#taskTable td{
+    border-bottom: 1px dashed var(--paper-line);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+#taskTable th{
+    font-family: var(--font-mono);
+    background-color: var(--pine-tint);
+    color: var(--pine-dark);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+}
+
+#taskTable th:last-child,
+#taskTable td:last-child{
+    text-align: center;
+}
+
+#taskTable tbody tr:last-child td{
+    border-bottom: none;
+}
+
+#taskTable tbody tr:hover td{
+    background-color: var(--paper);
+}
+
+#taskTable input[type="checkbox"]{
+    width: 17px;
+    height: 17px;
+    accent-color: var(--pine);
+    cursor: pointer;
+}
+
+#taskTable td button{
+    font-size: 0.7rem;
+    padding: 7px 12px;
+    margin: 2px;
+}
+
+.deleteTaskButton{
+    background: var(--danger-tint);
+    color: var(--danger);
+    border-color: #E3BBA9;
+}
+
+.deleteTaskButton:hover{
+    background: var(--danger);
+    color: #fff;
+    border-color: var(--danger);
+}
+
+/* ---------- finished tasks (disclosure) ---------- */
+
+.finished-tasks{
+    margin-top: 18px;
+    border: 1.5px dashed var(--paper-line);
+    border-radius: var(--radius-md);
+    background: var(--paper);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+}
+
+.finished-tasks[open]{
+    border-color: var(--pine);
+}
+
+.finished-tasks summary{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    user-select: none;
+    background-image: repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 6px,
+        rgba(46, 91, 76, 0.04) 6px,
+        rgba(46, 91, 76, 0.04) 7px
+    );
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.finished-tasks summary::-webkit-details-marker{
+    display: none;
+}
+
+.finished-tasks summary::before{
+    content: "▸";
+    display: inline-block;
+    color: var(--pine);
+    font-size: 0.7rem;
+    transition: transform 0.15s ease;
+}
+
+.finished-tasks[open] summary::before{
+    transform: rotate(90deg);
+}
+
+.finished-tasks[open] summary{
+    border-bottom: 1.5px dashed var(--paper-line);
+}
+
+.finished-tasks summary:hover{
+    color: var(--pine-dark);
+    background-color: var(--pine-tint);
+}
+
+.finished-tasks summary:focus-visible{
+    outline: 2px solid var(--pine);
+    outline-offset: -2px;
+}
+
+.finished-tasks-label{
+    flex: 1;
+}
+
+.finished-tasks-label::before{
+    content: "✓";
+    display: inline-block;
+    margin-right: 7px;
+    color: var(--pine);
+    font-weight: 700;
+}
+
+.finished-tasks-count{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1.5px solid var(--pine);
+    color: var(--pine-dark);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: normal;
+    text-transform: none;
+    transform: rotate(-4deg);
+}
+
+.finished-table-wrap{
+    margin: 0 12px 12px;
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: none;
+    animation: unfold 0.2s ease;
+}
+
+@keyframes unfold{
+    from{ opacity: 0; transform: translateY(-4px); }
+    to{ opacity: 1; transform: translateY(0); }
+}
+
+.finished-table-wrap #finishedTaskTable{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    background: var(--card);
+}
+
+.finished-table-wrap #finishedTaskTable th,
+.finished-table-wrap #finishedTaskTable td{
+    border-bottom: 1px dashed var(--paper-line);
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 0.86rem;
+}
+
+.finished-table-wrap #finishedTaskTable th{
+    font-family: var(--font-mono);
+    background-color: transparent;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+}
+
+.finished-table-wrap #finishedTaskTable th:last-child,
+.finished-table-wrap #finishedTaskTable td:last-child{
+    text-align: center;
+}
+
+.finished-table-wrap #finishedTaskTable tbody tr:last-child td{
+    border-bottom: none;
+}
+
+.finished-table-wrap #finishedTaskTable td{
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--paper-margin);
+    text-decoration-thickness: 1.3px;
+}
+
+.finished-table-wrap #finishedTaskTable td:last-child{
+    text-decoration: none;
+}
+
+.finished-table-wrap #finishedTaskTable td button{
+    font-size: 0.7rem;
+    padding: 6px 11px;
+    margin: 2px;
+}
+
+/* ---------- add/edit task modals ---------- */
+
+dialog#addTaskModal,
+dialog#editTaskModal{
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-pop);
+    background: var(--card);
+    max-width: 360px;
+    width: 90%;
+    animation: pop-in 0.16s ease;
+}
+
+dialog#addTaskModal::backdrop,
+dialog#editTaskModal::backdrop{
+    background: rgba(29,60,50,0.4);
+    backdrop-filter: blur(2px);
+}
+
+dialog#addTaskModal h4,
+dialog#editTaskModal h4{
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--pine-dark);
+    text-align: left;
+    margin: 0 0 4px;
+}
+
+@keyframes pop-in{
+    from{ opacity: 0; transform: translateY(6px) scale(0.98); }
+    to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.taskModalInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 18px 0 20px;
+}
+
+.taskModalInputs label{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.taskModalInputs input{
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.taskModalInputs input:focus{
+    border-color: var(--pine);
+    background: var(--card);
+    box-shadow: 0 0 0 3px var(--pine-tint);
+}
+
+#addTaskButton,
+#submitTaskEdit{
+    background: var(--pine);
+    color: #fff;
+    border-color: var(--pine);
+    margin-right: 8px;
+}
+
+#addTaskButton:hover,
+#submitTaskEdit:hover{
+    background: var(--pine-dark);
+    border-color: var(--pine-dark);
+}
+
+#closeTaskModal,
+#closeEditTaskModal{
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--paper-line);
+}
+
+#closeTaskModal:hover,
+#closeEditTaskModal:hover{
+    background: var(--paper);
+    color: var(--ink);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 620px){
+    h1{ font-size: 2.4rem; }
+    body{
+        padding: 32px 16px 60px;
+        background-image: repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 35px,
+            var(--paper-line) 36px
+        );
+    }
+    .note-card{ padding: 24px 18px; }
+    .note-card::before{ left: 50%; transform: translateX(-50%) rotate(-2deg); }
+    #taskTable th, #taskTable td{ padding: 10px 10px; font-size: 0.82rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; animation: none !important; }
+}
+
+.backButton{
+    transform: rotate(90deg);
+    width: 40px;
+}
+
+.backButton:hover{
+    cursor: pointer;
+}

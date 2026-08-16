@@ -1,0 +1,69 @@
+ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: '(Rows matched: 1  Changed: 1  Warnings: 0)',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+}
+
+SAFE UPDATE SYNTAX (CHECK FOR WARNING COUNTS)
+
+// 1. Run your update query
+const [result] = await db.execute(sql, [title, detail, id]);
+
+// 2. Check if the server generated warnings
+if (result.warningCount > 0) {
+  console.warn(`⚠️ MySQL executed with ${result.warningCount} warning(s). Fetching details...`);
+  
+  // 3. Query the server for the warning details
+  const [warnings] = await db.execute('SHOW WARNINGS');
+  
+  // 4. Log or handle each warning
+  warnings.forEach(warn => {
+    console.error(`[MySQL Warning ${warn.Code}] Level: ${warn.Level} | Message: ${warn.Message}`);
+  });
+} else if (result.affectedRows === 0) {
+  console.log('ℹ️ Query succeeded, but no rows matched the criteria (Check your ID).');
+} else {
+  console.log(`✅ Success! Matched: ${result.affectedRows}, Changed: ${result.changedRows}`);
+}
+
+const fileTypes = [
+    {
+        extension: [".js", ".mjs"],
+        contentType: "text/javascript",
+        useCase: "Standard scripts and ES modules."
+    },
+    {
+        extension: ".json",
+        contentType: "application/json",
+        useCase: "API payloads and configurations."
+    },
+    {
+        extension: ".html",
+        contentType: "text/html",
+        useCase: "Server-side rendering (SSR) responses."
+    },
+    {
+        extension: ".txt",
+        contentType: "text/plain",
+        useCase: "Raw text logging or data readouts."
+    },
+    {
+        extension: [".png", ".jpeg"],
+        contentType: ["image/png", "image/jpeg"],
+        useCase: "Direct canvas uploads or image processing."
+    },
+    {
+        extension: [".mp4", ".mp3"],
+        contentType: ["video/mp4", "audio/mpeg"],
+        useCase: "Multimedia streaming components."
+    },
+    {
+        extension: null,
+        contentType: "application/octet-stream",
+        useCase: "Unknown or fallback raw binary data."
+    }
+];
